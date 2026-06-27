@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brawl Camp</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #121212; color: #fff; text-align: center; margin: 0; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: #1e1e1e; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+        h1 { color: #ffcc00; text-transform: uppercase; font-size: 2.5em; margin-bottom: 5px; }
+        .subtitle { color: #aaa; font-size: 0.9em; margin-bottom: 25px; }
+        .stats { background: #2a2a2a; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #ffcc00; }
+        .stats p { margin: 8px 0; font-size: 1.1em; }
+        .highlight { color: #ffcc00; font-weight: bold; font-size: 1.3em; margin-top: 15px; }
+        .btn { background: #ffcc00; color: #000; border: none; padding: 15px 20px; font-size: 1.2em; font-weight: bold; width: 100%; border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .btn:hover { background: #e6b800; transform: scale(1.02); }
+        .pix-area { background: #2a2a2a; padding: 20px; border-radius: 8px; margin-top: 20px; border: 2px dashed #ffcc00; }
+        .pix-key { background: #000; padding: 15px; word-break: break-all; margin: 15px 0; border-radius: 5px; font-family: monospace; font-size: 1.1em; color: #00ff00; }
+        .admin-area { margin-top: 40px; border-top: 1px solid #333; padding-top: 20px; }
+        input[type="password"] { padding: 15px; width: calc(100% - 30px); margin-bottom: 15px; border-radius: 5px; border: 1px solid #444; background: #222; color: #fff; font-size: 1em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Brawl Camp</h1>
+        <p class="subtitle">Inscrição para campeonato • Pix • Liberação manual da sala</p>
+
+        <div class="stats">
+            <p>Vagas totais: <strong>9</strong></p>
+            <p>Inscritos: <strong id="inscritos">0</strong></p>
+            <p>Restantes: <strong id="restantes">9</strong></p>
+            <p class="highlight">0/9 vagas preenchidas</p>
+        </div>
+
+        <button id="btn-inscrever" class="btn" onclick="mostrarPix()">Garantir Vaga</button>
+
+        <div id="pix-area" class="pix-area" style="display: none;">
+            <h2 style="color: #ffcc00; margin-top: 0;">Vaga garantida!</h2>
+            <p>Chave Pix</p>
+            <div class="pix-key" id="chave-pix">sua-chave-pix-aqui@email.com</div>
+            <button class="btn" onclick="copiarPix()" id="btn-copiar">Copiar Chave Pix</button>
+        </div>
+
+        <div class="admin-area">
+            <h3 style="color: #aaa;">Login do Admin</h3>
+            <input type="password" id="admin-senha" placeholder="Senha">
+            <button class="btn" style="padding: 12px; font-size: 1em; background: #444; color: #fff;" onclick="loginAdmin()">Entrar como admin</button>
+        </div>
+    </div>
+
+    <script>
+        function mostrarPix() {
+            document.getElementById('btn-inscrever').style.display = 'none';
+            document.getElementById('pix-area').style.display = 'block';
+        }
+
+        function copiarPix() {
+            const chave = document.getElementById('chave-pix').innerText;
+            navigator.clipboard.writeText(chave).then(() => {
+                const btn = document.getElementById('btn-copiar');
+                btn.innerText = 'Copiado!';
+                btn.style.background = '#4CAF50';
+                btn.style.color = '#fff';
+                setTimeout(() => {
+                    btn.innerText = 'Copiar Chave Pix';
+                    btn.style.background = '#ffcc00';
+                    btn.style.color = '#000';
+                }, 3000);
+            });
+        }
+
+        function loginAdmin() {
+            const senha = document.getElementById('admin-senha').value;
+            if(senha) {
+                alert('Área restrita.');
+            } else {
+                alert('Digite a senha.');
+            }
+        }
+    </script>
+</body>
+</html>
